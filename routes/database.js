@@ -1,5 +1,4 @@
 const express = require("express");
-const { response } = require("../../ajax-crud/app");
 
 var router = express.Router();
 
