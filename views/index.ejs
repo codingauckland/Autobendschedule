@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./js/util.js"></script>
+  </head>
+  <body>
+    <h3 class="text1"></h3>
+    <button class="post1">post1</button>
+    <h3 class="text2"></h3>
+    <button class="post2">post2</button>
+    <div><%= sampledata[0].jobNo %></div>
+  </body>
+  <script>
+    let data = `<%= sampledata %>`;
+    console.log(data[1])
+    let btn1 = document.querySelector(".post1");
+    let text1 = document.querySelector(".text1");
+    let btn2 = document.querySelector("post2");
+    let text2 = document.querySelector(".text2");
+    let obj = { "name" : "Tony", "age": 18 };
+    let obj2 = {name : "Chen"}
+    
+
+    // btn1.addEventListener("click", function () {
+    //    ajax({
+    //     url: "/action",
+    //     type: "post",
+    //     data: JSON.stringify(obj2),
+    //     dataType: "json",
+    //     success(res) {
+    //     console.log(res);
+    //     console.log(JSON.parse(res)) 
+    //     },
+    //   });
+
+    //   //console.log(a)
+    // });
+    btn1.addEventListener("click", function () {
+       ajax({
+        url: "/action",
+        type: "post",
+        data: {action:'fetch'},
+        dataType: "json",
+        success(res) {
+        console.log(res);
+        // console.log(JSON.parse(res)) 
+        },
+      });
+    });
+  </script>
+</html>

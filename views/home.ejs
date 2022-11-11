@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="./css/home.css" />
+    <title>AutoBend</title>
+  </head>
+  <body>
+    <div class="container mt-3">
+      <section class="header">
+        <div class="thumbnail row" style="border: none; background: white">
+          <div class="col-sm-4 float-sm-start" style="text-align: center">
+            <img
+              class="img-fluid"
+              src="./images/autobend.png"
+              style="height: 70px"
+            />
+          </div>
+
+          <div class="col-sm align-self-center" style="display: block">
+            <h2 class="text-wrap align-self-center text-center">
+              Ak Production Schedule
+            </h2>
+          </div>
+        </div>
+      </section>
+      <br />
+
+      <ul class="nav nav-pills" id= "pills-tab" stylerole="tablist">
+        <li class="nav-item" role="presentation">
+          <button type="button" id="pills-csm100-tab"class="nav-link {{pillId=='pills-csm100-tab' ? "active":""}}" data-key="tabFlag" data-bs-toggle="pill" data-bs-target="#pills-csm100" role="tab" aria-controls="pills-csm100" aria-selected="true"
+            >CSM100</button
+          >
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="pills-csm38-tab"class="nav-link {{pillId=='pills-csm38-tab' ? "active":""}}" data-key="tabFlag" data-bs-toggle="pill" data-bs-target="#pills-csm38" role="tab" aria-controls="pills-csm38" aria-selected="false">CSM38</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button id="pills-eng-tab"class="nav-link {{pillId=='pills-eng-tab' ? "active":""}}" data-key="tabFlag" data-bs-toggle="pill" data-bs-target="#pills-eng" role="tab" aria-controls="pills-csm38" aria-selected="false">ENG</a>
+        </li>
+      </ul>
+
+      <div class="todoapp tab-content" id="pills-tabContent">
+
+      </div>
+
+      <br />
+      <br /><br />
+      <footer class="info">
+        <p>Double-click to edit a job list</p>
+        <p>Created by <a href="javascript:;">Chen</a></p>
+        <p>Part of <a href="javascript:;">AutoBend</a></p>
+      </footer>
+    </div>
+
+    <script src="./js/template-web.js"></script>
+
+    <script type="text/template" id="tmp">
+                <!-- 页面主体部分 -->
+
+       
+              <div id="pills-csm100" class="tab-pane fade {{pillId=='pills-csm100-tab' ? "active show":""}}" role="tabpanel" aria-labelledby="pills-csm100-tab"><br>
+                <h3>CSM 100</h3>
+                <table class="table table-bordered table-striped table-responsive-sm p-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Customer</th>
+                      <th scope="col">Job</th>
+                      <th scope="col">Qty.</th>
+                      <th scope="col">Process</th>
+                      <th scope="col">Material</th>
+                      <th scope="col">Mandrel</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  {{each aList v}}
+
+                  <tr data-id="{{v.id}}">
+                    <th data-id="{{v.id}}" data-key="jobNo" scope="row">{{v.jobNo}}</th>
+                    <td data-id="{{v.id}}" data-key="customer" class="{{v.isFinish && "completed"}}">{{v.customer}}</td>
+                    <td data-id="{{v.id}}" data-key="jobName" class="{{v.isFinish && "completed"}}">{{v.jobName}}</td>
+                    <td data-id="{{v.id}}" data-key="qty" class="{{v.isFinish && "completed"}}">{{v.qty}}</td>
+                    <td data-id="{{v.id}}" data-key="process" class="{{v.isFinish && "completed"}}">{{v.process}}</td>
+                    <td data-id="{{v.id}}" data-key="material" class=" {{(!v.materialIsReady & !v.materialIsOrdered) && "text-danger h6"}} {{v.isFinish && "completed"}}">{{v.material}}
+                        <button data-key="materialRD" data-id="{{v.id}}" type="button" class="btn {{v.materialIsReady ? "btn-success" : "btn-secondary"}} btn-sm p-0 lh-1 align-baseline">RD</button>
+                        <button data-key="materialOD" data-id="{{v.id}}"type="button" class="btn {{v.materialIsOrdered ? "btn-info" : "btn-secondary"}} btn-sm p-0 lh-1 ms-1 align-baseline">OD</button></td>
+
+                    <td data-id="{{v.id}}" class=" {{(!v.mandrelIsReady & !v.mandrelIsOrdered) && "table-danger"}}">
+                        <button data-key="mandrelRD" data-id="{{v.id}}"type="button" class="btn {{v.mandrelIsReady ? "btn-success" : "btn-secondary"}} btn-sm p-0 lh-1 align-baseline">RD</button>
+                        <button data-key="mandrelOD" data-id="{{v.id}}" type="button" class="btn {{v.mandrelIsOrdered ? "btn-info" : "btn-secondary"}} btn-sm p-0 lh-1 ms-1 align-baseline">OD</button></td>
+                    <td >
+
+                      <!-- <button type="button" class="btn btn-info btn-sm p-0 lh-1 align-baseline">Edit</i></button> -->
+                        <button data-key="done" data-id="{{v.id}}" type="button" class="btn btn-success btn-sm p-0 lh-1 align-baseline">Done</button>
+                        <button data-key="up" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8593</button>
+                        <button data-key="down" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8595</button>
+                        <button  data-key="del" data-id="{{v.id}}" type="button" class="btn btn-danger btn-sm p-0 lh-1 align-baseline ms-3 me-0 pe-0">&nbsp X &nbsp</button>
+
+                    </td>
+                  </tr>
+
+                  {{/each}}
+                  <tr>
+                    <th scope="row">New</th>
+                    <form>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="customer" placeholder="Customer"></td>
+                    <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="job" placeholder="Job"></td>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="qty" placeholder="Qty"></td>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="process" placeholder="Process"></td>
+                    <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="material" placeholder="Material"></td>
+                    <td class="col"></td>
+                    <td class="col align-content-center"> <button type="submit" data-key="add" data-type="A" class="btn btn-primary btn-sm p-1 lh-1 align-bottom ms-3  ">&nbsp Add &nbsp</button></td>
+                  </form>
+
+                  </tbody>
+                </table>
+                <footer class="footer d-inline-flex float-end ">
+                  <!-- This should be `0 items left` by default -->
+                  <!-- 有多少条未完成的 todo -->
+                  <span class="todo-count m-auto"> Job left<span class="badge bg-info rounded-pill ">{{activeANum}}</span></span>
+                  <!-- Remove this if you don't implement routing -->
+
+                  <div class="filters list-group list-group-horizontal ms-5">
+                      <a class="list-group-item list-group-item-action {{type==='all' && 'selected'}}" href="#/">All</a>
+                      <a class=" list-group-item list-group-item-action {{type==='active' && 'selected'}}" href="#/active">Active</a>
+                      <a class="list-group-item list-group-item-action {{type==='completed' && 'selected'}}" href="#/completed">Completed</a>
+                  </div>
+                  <!-- Hidden if no completed items are left ↓ -->
+
+                  {{if activeANum !==aLength}}
+                  <button data-key="clear-completed" data-type="A" class="clear-completed btn-danger ms-3">Clear completed</button>
+                  {{/if}}
+                </footer>
+              </div>
+
+              <!-- CSM38 -->
+              
+              <div id="pills-csm38" class="tab-pane fade {{pillId=='pills-csm38-tab' ? "active show":""}}" role="tabpanel" aria-labelledby="pills-csm38-tab"><br>
+                <h3>CSM 38</h3>
+
+                <table class="table table-bordered table-striped table-responsive-sm p-0">
+                  <thead>
+                    <tr>
+                      <th scope="col">No.</th>
+                      <th scope="col">Customer</th>
+                      <th scope="col">Job</th>
+                      <th scope="col">Qty.</th>
+                      <th scope="col">Process</th>
+                      <th scope="col">Material</th>
+                      <th scope="col">Mandrel</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  {{each bList v}}
+
+                  <tr data-id="{{v.id}}">
+                    <th data-id="{{v.id}}" data-key="jobNo" scope="row">{{v.jobNo}}</th>
+                    <td data-id="{{v.id}}" data-key="customer" class="{{v.isFinish && "completed"}}">{{v.customer}}</td>
+                    <td data-id="{{v.id}}" data-key="jobName" class="{{v.isFinish && "completed"}}">{{v.jobName}}</td>
+                    <td data-id="{{v.id}}" data-key="qty" class="{{v.isFinish && "completed"}}">{{v.qty}}</td>
+                    <td data-id="{{v.id}}" data-key="process" class="{{v.isFinish && "completed"}}">{{v.process}}</td>
+                    <td data-id="{{v.id}}" data-key="material" class=" {{(!v.materialIsReady & !v.materialIsOrdered) && "text-danger h6"}} {{v.isFinish && "completed"}}">{{v.material}}
+                        <button data-key="materialRD" data-id="{{v.id}}" type="button" class="btn {{v.materialIsReady ? "btn-success" : "btn-secondary"}} btn-sm p-0 lh-1 align-baseline">RD</button>
+                        <button data-key="materialOD" data-id="{{v.id}}"type="button" class="btn {{v.materialIsOrdered ? "btn-info" : "btn-secondary"}} btn-sm p-0 lh-1 ms-1 align-baseline">OD</button></td>
+
+                    <td data-id="{{v.id}}" class=" {{(!v.mandrelIsReady & !v.mandrelIsOrdered) && "table-danger"}}">
+                        <button data-key="mandrelRD" data-id="{{v.id}}"type="button" class="btn {{v.mandrelIsReady ? "btn-success" : "btn-secondary"}} btn-sm p-0 lh-1 align-baseline">RD</button>
+                        <button data-key="mandrelOD" data-id="{{v.id}}" type="button" class="btn {{v.mandrelIsOrdered ? "btn-info" : "btn-secondary"}} btn-sm p-0 lh-1 ms-1 align-baseline">OD</button></td>
+                    <td >
+
+                      <!-- <button type="button" class="btn btn-info btn-sm p-0 lh-1 align-baseline">Edit</i></button> -->
+                        <button data-key="done" data-id="{{v.id}}" type="button" class="btn btn-success btn-sm p-0 lh-1 align-baseline">Done</button>
+                        <button data-key="up" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8593</button>
+                        <button data-key="down" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8595</button>
+                        <button  data-key="del" data-id="{{v.id}}" type="button" class="btn btn-danger btn-sm p-0 lh-1 align-baseline ms-3 me-0 pe-0">&nbsp X &nbsp</button>
+
+                    </td>
+                  </tr>
+
+                  {{/each}}
+                  <tr>
+                    <th scope="row">New</th>
+                    <form>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="customer" placeholder="Customer"></td>
+                    <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="job" placeholder="Job"></td>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="qty" placeholder="Qty"></td>
+                    <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="process" placeholder="Process"></td>
+                    <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="material" placeholder="Material"></td>
+                    <td class="col"></td>
+                    <td class="col align-content-center"> <button type="submit" data-key="add" data-type="B" class="btn btn-primary btn-sm p-1 lh-1 align-bottom ms-3  ">&nbsp Add &nbsp</button></td>
+                  </form>
+
+                  </tbody>
+                </table>
+                <footer class="footer d-inline-flex float-end ">
+                  <!-- This should be `0 items left` by default -->
+                  <!-- 有多少条未完成的 todo -->
+                  <span class="todo-count m-auto"> Job left<span class="badge bg-info rounded-pill ">{{activeBNum}}</span></span>
+                  <!-- Remove this if you don't implement routing -->
+
+                  <div class="filters list-group list-group-horizontal ms-5">
+                      <a class="list-group-item list-group-item-action {{type==='all' && 'selected'}}" href="#/">All</a>
+                      <a class=" list-group-item list-group-item-action {{type==='active' && 'selected'}}" href="#/active">Active</a>
+                      <a class="list-group-item list-group-item-action {{type==='completed' && 'selected'}}" href="#/completed">Completed</a>
+                  </div>
+                  <!-- Hidden if no completed items are left ↓ -->
+
+                  {{if activeBNum !==bLength}}
+                  <button data-key="clear-completed" data-type="B" class="clear-completed btn-danger ms-3">Clear completed</button>
+                  {{/if}}
+                </footer>
+              </div>
+
+                <!-- Engnieering -->
+              
+                <div id="pills-eng" class=" tab-pane fade {{pillId=='pills-eng-tab' ? "active show":""}}" role="tabpanel" aria-labelledby="pills-eng-tab"><br>
+                  <h3>Engnieering</h3>
+
+                  <table class="table table-bordered table-striped table-responsive-sm p-0">
+                    <thead>
+                      <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Job</th>
+                        <th scope="col">Qty.</th>
+                        <th scope="col">Process</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    {{each eList v}}
+
+                    <tr data-id="{{v.id}}">
+                      <th data-id="{{v.id}}" data-key="jobNo" scope="row">{{v.jobNo}}</th>
+                      <td data-id="{{v.id}}" data-key="customer" class="{{v.isFinish && "completed"}}">{{v.customer}}</td>
+                      <td data-id="{{v.id}}" data-key="jobName" class="{{v.isFinish && "completed"}}">{{v.jobName}}</td>
+                      <td data-id="{{v.id}}" data-key="qty" class="{{v.isFinish && "completed"}}">{{v.qty}}</td>
+                      <td data-id="{{v.id}}" data-key="process" class="{{v.isFinish && "completed"}}">{{v.process}}</td>
+                      <td data-id="{{v.id}}" data-key="material" class=" {{(!v.materialIsReady & !v.materialIsOrdered) && "text-danger h6"}} {{v.isFinish && "completed"}}">{{v.material}}
+                          <button data-key="materialRD" data-id="{{v.id}}" type="button" class="btn {{v.materialIsReady ? "btn-success" : "btn-secondary"}} btn-sm p-0 lh-1 align-baseline">RD</button>
+                          <button data-key="materialOD" data-id="{{v.id}}"type="button" class="btn {{v.materialIsOrdered ? "btn-info" : "btn-secondary"}} btn-sm p-0 lh-1 ms-1 align-baseline">OD</button></td>
+
+
+
+                        <!-- <button type="button" class="btn btn-info btn-sm p-0 lh-1 align-baseline">Edit</i></button> -->
+                        <td>
+                          <button data-key="done" data-id="{{v.id}}" type="button" class="btn btn-success btn-sm p-0 lh-1 align-baseline">Done</button>
+                          <button data-key="up" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8593</button>
+                          <button data-key="down" data-id="{{v.id}}" type="button" class="btn btn-secondary btn-sm p-0 lh-1 align-baseline px-1">&#8595</button>
+                          <button  data-key="del" data-id="{{v.id}}" type="button" class="btn btn-danger btn-sm p-0 lh-1 align-baseline ms-3 me-0 pe-0">&nbsp X &nbsp</button>
+
+                      </td>
+                    </tr>
+
+                    {{/each}}
+                    <tr>
+                      <th scope="row">New</th>
+                      <form>
+                      <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="customer" placeholder="Customer"></td>
+                      <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="job" placeholder="Job"></td>
+                      <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="qty" placeholder="Qty"></td>
+                      <td class="col-1"><input type="text" class="form-control-sm form-control-plaintext" id="process" placeholder="Process"></td>
+                      <td class="col"><input type="text" class="form-control-sm form-control-plaintext" id="material" placeholder="Material"></td>
+                      
+                      <td class="col align-content-center"> <button type="submit" data-key="add" data-type="E" class="btn btn-primary btn-sm p-1 lh-1 align-bottom ms-3  ">&nbsp Add &nbsp</button></td>
+                    </form>
+
+                    </tbody>
+                  </table>
+                  <footer class="footer d-inline-flex float-end ">
+                    <!-- This should be `0 items left` by default -->
+                    <!-- 有多少条未完成的 todo -->
+                    <span class="todo-count m-auto"> Job left<span class="badge bg-info rounded-pill ">{{activeENum}}</span></span>
+                    <!-- Remove this if you don't implement routing -->
+
+                    <div class="filters list-group list-group-horizontal ms-5">
+                        <a class="list-group-item list-group-item-action {{type==='all' && 'selected'}}" href="#/">All</a>
+                        <a class=" list-group-item list-group-item-action {{type==='active' && 'selected'}}" href="#/active">Active</a>
+                        <a class="list-group-item list-group-item-action {{type==='completed' && 'selected'}}" href="#/completed">Completed</a>
+                    </div>
+                    <!-- Hidden if no completed items are left ↓ -->
+
+                    {{if activeENum !==eLength}}
+                    <button data-key="clear-completed" data-type="E" class="clear-completed btn-danger ms-3">Clear completed</button>
+                    {{/if}}
+                  </footer>
+                </div>
+    </script>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
