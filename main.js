@@ -9,9 +9,12 @@ var bodyParser= require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// app.use(express.static('public'))
-app.use('/static', express.static(path.join(__dirname, 'public')))
-
+app.use(express.static('public'))
+// app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    next();
+  });
 app.use("/",database)
 // app.get('/',function(req,res){
 //     res.render("home",{})
