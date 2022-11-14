@@ -459,11 +459,27 @@ box.addEventListener("click", function (e) {
 
   //add
   if (target.dataset.key === "add") {
-    let customer = document.getElementById("customer").value.trim();
-    let jobName = document.getElementById("job").value.trim();
-    let qty = document.getElementById("qty").value.trim();
-    let process = document.getElementById("process").value.trim();
-    let material = document.getElementById("material").value.trim();
+    let materialElement = null
+    if (target.dataset.type=="E"){
+       materialElement = target.parentElement.previousElementSibling
+       
+    }
+    else {materialElement = target.parentElement.previousElementSibling.previousElementSibling}
+    // console.log(target.parentElement.previousElementSibling)
+    
+    let processElement = materialElement.previousElementSibling
+    let qtyElement = processElement.previousElementSibling
+    let jobNameElement = qtyElement.previousElementSibling
+    let customerElement = jobNameElement.previousElementSibling
+console.log(customerElement.firstElementChild)
+    let customer = customerElement.firstElementChild.value.trim();
+    let jobName = jobNameElement.firstElementChild.value.trim();
+    let qty = qtyElement.firstElementChild.value.trim();
+    let process = processElement.firstElementChild.value.trim();
+    let material = materialElement.firstElementChild.value.trim();
+    // let test = target.parentElement.previousElementSibling.previousElementSibling
+    // let test1= test.previousSibling.innerHTML
+    console.log(target,materialElement.firstElementChild.value)
     console.log(customer,jobName,qty,process,material,target.dataset.type)
     let jobNo = list.filter(item=>{return item.jobType==target.dataset.type}).length
 
